@@ -127,8 +127,22 @@ class WebWebViewController extends PlatformWebViewController {
         if (!iFrameSrc.startsWith(event.origin)) {
           return;
         }
+
+        // ignore: avoid_dynamic_calls
+        final String? channelName = event.data?['channel'] as String?;
+        if (channelName != javaScriptChannelParams.name) {
+          return;
+        }
+
+        // ignore: avoid_dynamic_calls
+        final String? message = event.data?['message'] as String?;
+        if (message == null) {
+          return;
+        }
+
         javaScriptChannelParams.onMessageReceived(
-            JavaScriptMessage(message: event.data.toString()));
+          JavaScriptMessage(message: message),
+        );
       }
     }
 
