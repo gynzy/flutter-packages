@@ -118,6 +118,15 @@ class WebWebViewController extends PlatformWebViewController {
   ) async {
     void handler(html.Event event) {
       if (event is html.MessageEvent) {
+        final String? iFrameSrc = _webWebViewParams.iFrame.src;
+        if (event.origin.isEmpty || iFrameSrc == null) {
+          return;
+        }
+
+        // Security check
+        if (!iFrameSrc.startsWith(event.origin)) {
+          return;
+        }
         javaScriptChannelParams.onMessageReceived(
             JavaScriptMessage(message: event.data.toString()));
       }
