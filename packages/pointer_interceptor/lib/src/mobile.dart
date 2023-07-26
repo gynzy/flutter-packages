@@ -35,7 +35,7 @@ class PointerInterceptor extends StatelessWidget {
     if (Platform.isAndroid || Platform.isIOS) {
       return Stack(alignment: Alignment.center, children: <Widget>[
         Opacity(
-          opacity: 0,
+          opacity: 0.01, // With 0 the work-around does not work on iOS.
           child: WebViewWidget(controller: WebViewController()),
         ),
         child,
