@@ -29,7 +29,7 @@ class WebWebViewControllerCreationParams
     // ignore: avoid_unused_constructor_parameters
     PlatformWebViewControllerCreationParams params, {
     @visibleForTesting
-        HttpRequestFactory httpRequestFactory = const HttpRequestFactory(),
+    HttpRequestFactory httpRequestFactory = const HttpRequestFactory(),
   }) : this(httpRequestFactory: httpRequestFactory);
 
   static int _nextIFrameId = 0;
@@ -128,14 +128,18 @@ class WebWebViewController extends PlatformWebViewController {
           return;
         }
 
+        if (event.data == null || event.data is! Map) {
+          return;
+        }
+
         // ignore: avoid_dynamic_calls
-        final String? channelName = event.data?['channel'] as String?;
+        final String? channelName = event.data['channel'] as String?;
         if (channelName != javaScriptChannelParams.name) {
           return;
         }
 
         // ignore: avoid_dynamic_calls
-        final String? message = event.data?['message'] as String?;
+        final String? message = event.data['message'] as String?;
         if (message == null) {
           return;
         }
