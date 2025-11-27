@@ -391,4 +391,17 @@ class WebViewProxyAPIDelegate: PigeonApiDelegateWKWebView, PigeonApiDelegateUIVi
     try setAllowsLinkPreview(
       pigeonApi: getUIViewWKWebViewAPI(pigeonApi), pigeonInstance: pigeonInstance, allow: allow)
   }
+
+  func getIsBlockedByScreenTime(pigeonApi: PigeonApiUIViewWKWebView, pigeonInstance: WKWebView)
+    throws -> Bool
+  {
+    if #available(iOS 26.0, *) {
+      return pigeonInstance.isBlockedByScreenTime
+    } else {
+      throw (pigeonApi.pigeonRegistrar as! ProxyAPIRegistrar)
+        .createUnsupportedVersionError(
+          method: "WKWebView.isBlockedByScreenTime",
+          versionRequirements: "iOS 26.0")
+    }
+  }
 }

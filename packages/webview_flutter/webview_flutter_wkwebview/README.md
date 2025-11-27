@@ -11,6 +11,29 @@ so you do not need to add it to your `pubspec.yaml`.
 However, if you `import` this package to use any of its APIs directly, you
 should add it to your `pubspec.yaml` as usual.
 
+### iOS-specific Features
+
+The `WebKitWebViewController` provides iOS-specific features beyond the standard webview functionality:
+
+#### Screen Time Detection
+
+On iOS 26.0+, you can detect if the webview is blocked by Screen Time restrictions:
+
+```dart
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
+
+// Check if webview is blocked by Screen Time
+if (controller is WebKitWebViewController) {
+  final isBlocked = await controller.isBlockedByScreenTime;
+  if (isBlocked) {
+    // Handle Screen Time blocking, e.g., show user-friendly message
+    print('Content is blocked by Screen Time restrictions');
+  }
+}
+```
+
+This property returns `false` on iOS versions earlier than 26.0.
+
 ### External Native API
 
 The plugin also provides a native API accessible by the native code of iOS applications or packages.
