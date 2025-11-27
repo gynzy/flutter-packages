@@ -424,6 +424,26 @@ class WebKitWebViewController extends PlatformWebViewController {
     return _webView.setInspectable(inspectable);
   }
 
+  /// Checks whether the webview is currently blocked by Screen Time.
+  ///
+  /// This property is only available on iOS 26.0 and later. On earlier
+  /// versions, this method returns false.
+  ///
+  /// Returns true if Screen Time is blocking the webview, false otherwise.
+  ///
+  /// See https://developer.apple.com/documentation/webkit/wkwebview/isblockedbyscreentime
+  Future<bool> get isBlockedByScreenTime async {
+    try {
+      return await _webView.getIsBlockedByScreenTime();
+    } on PlatformException catch (e) {
+      // On iOS < 26.0, the API is not available
+      if (e.code == 'unavailable') {
+        return false;
+      }
+      rethrow;
+    }
+  }
+
   @override
   Future<void> loadFile(String absoluteFilePath) {
     return loadFileWithParams(

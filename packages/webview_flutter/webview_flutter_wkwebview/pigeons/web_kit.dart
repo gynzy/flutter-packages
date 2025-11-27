@@ -939,6 +939,15 @@ abstract class UIViewWKWebView extends UIView implements WKWebView {
   ///
   /// Defaults to true.
   void setAllowsLinkPreview(bool allow);
+
+  /// A Boolean value indicating whether Screen Time blocking has occurred.
+  ///
+  /// Returns true if the webview is blocked by Screen Time restrictions.
+  /// Only available on iOS 26.0 and later. On earlier versions, this will
+  /// throw a PlatformException.
+  ///
+  /// See https://developer.apple.com/documentation/webkit/wkwebview/isblockedbyscreentime
+  bool getIsBlockedByScreenTime();
 }
 
 /// An object that displays interactive web content, such as for an in-app

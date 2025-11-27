@@ -1,3 +1,7 @@
+## NEXT
+
+* Adds `WebKitWebViewController.isBlockedByScreenTime` getter to detect iOS Screen Time blocking (iOS 26.0+).
+
 ## 3.23.4
 
 * Replaces use of deprecated Color.value.
